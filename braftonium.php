@@ -24,7 +24,7 @@ require_once( 'posttypes.php' );
 
 // make acf options
 if(!function_exists("acf_add_local_field_group")){
-	echo __( "Hey, do you have the ACF plugin? You don\'t need to activate it but it\'ll be nice if it was there.", "braftonium" );
+	_e( "Hey, do you have the ACF plugin? You don\'t need to activate it but it\'ll be nice if it was there.", "braftonium" );
 } else {
 	acf_add_local_field_group(array(
 		'key' => 'group_5a4e8d955ca61',
@@ -137,7 +137,7 @@ if( function_exists('acf_add_options_page') ) {
 }
 
 // Add GA
-$brafton_ga = get_field('google_analytics', 'option');
+$brafton_ga = sanitize_html_class(get_field('google_analytics', 'option'));
 if( isset($brafton_ga) && !function_exists('braftonium_google_analytics') ) {
 function braftonium_google_analytics() {
     global $brafton_ga;
@@ -170,9 +170,9 @@ function braftonium_morewidgets_init() {
 		foreach( $widgetareas as $widgetarea ):
 			if ($widgetarea !== 'footer'):
 				register_sidebar( array(
-					'name'		  => ucwords($widgetarea).' '.__( 'Sidebar', 'braftonium' ),
+					'name'		  => ucwords(sanitize_title($widgetarea)).' '.__( 'Sidebar', 'braftonium' ),
 					'id'			=> sanitize_title($widgetarea).'-sidebar',
-					'description'   => ucwords($widgetarea).' '.__( 'widget area.', 'braftonium' ),
+					'description'   => ucwords(sanitize_title($widgetarea)).' '.__( 'widget area.', 'braftonium' ),
 					'before_widget' => '<section id="%1$s" class="widget %2$s">',
 					'after_widget'  => '</section>',
 					'before_title'  => '<h3 class="widget-title">',

@@ -11,7 +11,7 @@ function braftonium_posttypes_init() {
 	global $custom_post_types;
 	if( $custom_post_types ):
 	foreach( $custom_post_types as $custom_post_type ):
-	  $custom_post_title = ucwords(str_replace('_', ' ', $custom_post_type));
+	  $custom_post_title = ucwords(str_replace('_', ' ', sanitize_html_class($custom_post_type)));
 			$posttypes_labels = array(
 				'name'				=> $custom_post_title,
 				'singular_name'		=> $custom_post_title,
