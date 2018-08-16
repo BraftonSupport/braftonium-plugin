@@ -1,15 +1,14 @@
 <?php
 /*
 Plugin Name:  Braftonium Plugin
-Plugin URI:   i dunno
+Plugin URI:   https://github.com/BraftonSupport/braftonium-plugin/
 Description:  Adds Custom Post Types, Custom Widget Areas, and adds Google Analytics
-Version:	  .1
+Version:	  .2
 Author: Brafton
 Author URI: http://www.brafton.com
 License:	  GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: braftonium
-Domain Path:  ?
 */
 
 // register_activation_hook( __FILE__, 'pluginprefix_function_to_run' );
