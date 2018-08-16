@@ -170,9 +170,9 @@ function braftonium_morewidgets_init() {
 		foreach( $widgetareas as $widgetarea ):
 			if ($widgetarea !== 'footer'):
 				register_sidebar( array(
-					'name'		  => ucwords(sanitize_title($widgetarea)).' '.__( 'Sidebar', 'braftonium' ),
+					'name'		  => ucwords(sanitize_text_field($widgetarea)).' '.__( 'Sidebar', 'braftonium' ),
 					'id'			=> sanitize_title($widgetarea).'-sidebar',
-					'description'   => ucwords(sanitize_title($widgetarea)).' '.__( 'widget area.', 'braftonium' ),
+					'description'   => ucwords(sanitize_text_field($widgetarea)).' '.__( 'widget area.', 'braftonium' ),
 					'before_widget' => '<section id="%1$s" class="widget %2$s">',
 					'after_widget'  => '</section>',
 					'before_title'  => '<h3 class="widget-title">',
