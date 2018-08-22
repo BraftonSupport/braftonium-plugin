@@ -11,7 +11,7 @@ function braftonium_posttypes_init() {
 	global $custom_post_types;
 	if( $custom_post_types ):
 	foreach( $custom_post_types as $custom_post_type ):
-		$custom_post_santype = sanitize_text_field($custom_post_type);
+		$custom_post_santype = ucfirst(sanitize_text_field($custom_post_type));
 		$custom_post_slug = str_replace(' ', '-', $custom_post_santype);
 			$posttypes_labels = array(
 				'name'				=> $custom_post_santype,
