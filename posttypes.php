@@ -29,6 +29,18 @@ function braftonium_posttypes_init() {
 				'supports'			=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'revisions', )
 			);
 			register_post_type($custom_post_slug, $posttypes_args);
+			
+			if ( $custom_post_type=='testimonial' ) {
+				include_once '/custom-post-types/testimonials/testimonials.acf.php';
+				wp_enqueue_style( 'style', '/custom-post-types/testimonials/style.css', false, '1.0.0' );
+			}
+			if ( $custom_post_type=='event' ) {
+				include_once '/custom-post-types/events/events.acf.php';
+			}
+			if ( $custom_post_type=='team_member' ) {
+				include_once '/custom-post-types/team/team.acf.php';
+			}
+
 		endforeach;
 	endif;
 }
@@ -59,15 +71,3 @@ function braftonium_deactivation() {
 	flush_rewrite_rules();
 }
 register_deactivation_hook( __FILE__, 'braftonium_deactivation' );
-
-
-if ( is_array($custom_post_types) && in_array('testimonial', $custom_post_types) ) {
-	require_once '/custom-post-types/testimonials/testimonials.acf.php';
-	wp_enqueue_style( 'style', '/custom-post-types/testimonials/style.css', false, '1.0.0' );
-}
-if ( is_array($custom_post_types) &&  in_array('event', $custom_post_types) ) {
-	require_once '/custom-post-types/events/events.acf.php';
-}
-if ( is_array($custom_post_types) &&  in_array('team_member', $custom_post_types) ) {
-	require_once '/custom-post-types/team/team.acf.php';
-}
