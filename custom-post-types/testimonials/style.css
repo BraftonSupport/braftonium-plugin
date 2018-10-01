@@ -1,0 +1,25 @@
+/* Testimonials front end */
+
+.testimonial-meta {
+	text-align: right;
+}
+.testimonial-meta:before {
+	content: '- ';
+}
+.testimonial-meta span:after {
+	content: ', ';
+}
+.testimonial-meta span:last-child:after {
+	content: '';
+}
+
+.testimonials-list {
+	padding: 25px 0;
+}
+.testimonial-single {
+	margin-bottom: 35px;
+	border-bottom: 1px solid rgba( 0, 0, 0 , .25);
+}
+.testimonial-single:last-child {
+	border:none;
+}

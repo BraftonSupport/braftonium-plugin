@@ -4,19 +4,20 @@
 /**
  * Register Post Types.
  */
-
-$custom_post_types = get_field('custom_post_types', 'option');
-
+if (function_exists ('get_field')){
+	$custom_post_types = get_field('custom_post_types', 'option');
+}
 function braftonium_posttypes_init() {
 	global $custom_post_types;
 	if( $custom_post_types ):
 	foreach( $custom_post_types as $custom_post_type ):
-	  $custom_post_title = ucwords(str_replace('_', ' ', $custom_post_type));
+		$custom_post_santype = ucfirst(sanitize_text_field($custom_post_type));
+		$custom_post_slug = str_replace(' ', '-', $custom_post_santype);
 			$posttypes_labels = array(
-				'name'				=> $custom_post_title,
-				'singular_name'		=> $custom_post_title,
-				'menu_name'			=> $custom_post_title,
-				'add_new_item'		=> __( 'Add New', 'braftonium' ).' '.$custom_post_title,
+				'name'				=> $custom_post_santype,
+				'singular_name'		=> $custom_post_santype,
+				'menu_name'			=> $custom_post_santype,
+				'add_new_item'		=> __( 'Add New', 'braftonium' ).' '.$custom_post_santype,
 			);
 			$posttypes_args = array(
 				'labels'			=> $posttypes_labels,
@@ -25,9 +26,9 @@ function braftonium_posttypes_init() {
 				'capability_type'	=> 'page',
 				'has_archive'		=> true,
 				'hierarchical'		=> true,
-				'supports'			=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'revisions' )
+				'supports'			=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'revisions', )
 			);
-			register_post_type($custom_post_type, $posttypes_args);
+			register_post_type($custom_post_slug, $posttypes_args);
 		endforeach;
 	endif;
 }
@@ -58,3 +59,15 @@ function braftonium_deactivation() {
 	flush_rewrite_rules();
 }
 register_deactivation_hook( __FILE__, 'braftonium_deactivation' );
+
+
+if ( is_array($custom_post_types) && in_array('testimonial', $custom_post_types) ) {
+	require_once '/custom-post-types/testimonials/testimonials.acf.php';
+	wp_enqueue_style( 'style', '/custom-post-types/testimonials/style.css', false, '1.0.0' );
+}
+if ( is_array($custom_post_types) &&  in_array('event', $custom_post_types) ) {
+	require_once '/custom-post-types/events/events.acf.php';
+}
+if ( is_array($custom_post_types) &&  in_array('team_member', $custom_post_types) ) {
+	require_once '/custom-post-types/team/team.acf.php';
+}
