@@ -175,8 +175,8 @@ function braftonium_morewidgets_init() {
 					'description'   => ucwords(sanitize_text_field($widgetarea)).' '.__( 'widget area.', 'braftonium' ),
 					'before_widget' => '<section id="%1$s" class="widget %2$s">',
 					'after_widget'  => '</section>',
-					'before_title'  => '<h3 class="widget-title">',
-					'after_title'   => '</h3>',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
 				) );
 			endif;
 		endforeach;
