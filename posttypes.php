@@ -1,6 +1,8 @@
 <?php
 /* Custom Post Types */
-
+if ( ! defined( 'ABSPATH' ) ) { 
+    exit; 
+}
 /**
  * Register Post Types.
  */
