@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) { 
+    exit; 
+}
 	register_field_group(array (
 		'id' => 'acf_events',
 		'title' => __( 'Events', 'braftonium' ),
