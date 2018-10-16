@@ -62,12 +62,12 @@ register_deactivation_hook( __FILE__, 'braftonium_deactivation' );
 
 
 if ( is_array($custom_post_types) && in_array('testimonial', $custom_post_types) ) {
-	require_once '/custom-post-types/testimonials/testimonials.acf.php';
+	include_once '/custom-post-types/testimonials/testimonials.acf.php';
 	wp_enqueue_style( 'style', plugin_dir_url( __FILE__ ).'custom-post-types/testimonials/style.css');
 }
 if ( is_array($custom_post_types) &&  in_array('event', $custom_post_types) ) {
-	require_once '/custom-post-types/events/events.acf.php';
+	include_once '/custom-post-types/events/events.acf.php';
 }
 if ( is_array($custom_post_types) &&  in_array('team_member', $custom_post_types) ) {
-	require_once '/custom-post-types/team/team.acf.php';
+	include_once '/custom-post-types/team/team.acf.php';
 }
