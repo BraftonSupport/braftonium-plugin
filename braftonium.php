@@ -10,7 +10,9 @@ License:	  GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: braftonium
 */
-
+if ( ! defined( 'ABSPATH' ) ) { 
+    exit; 
+}
 // register_activation_hook( __FILE__, 'pluginprefix_function_to_run' );
 
 // internationalization
