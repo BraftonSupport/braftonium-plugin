@@ -1,8 +1,8 @@
 <?php
 /* Custom Post Types */
-if ( ! defined( 'ABSPATH' ) ) { 
-    exit; 
-}
+//stop direct access
+if ( ! defined( 'ABSPATH' ) )  exit;
+
 /**
  * Register Post Types.
  */
@@ -34,7 +34,7 @@ function braftonium_posttypes_init() {
 			
 			if ( $custom_post_type=='testimonial' ) {
 				include_once '/custom-post-types/testimonials/testimonials.acf.php';
-				wp_enqueue_style( 'style', '/custom-post-types/testimonials/style.css', false, '1.0.0' );
+				wp_enqueue_style( 'style', plugin_dir_path().'/custom-post-types/testimonials/style.css', false, '1.0.0' );
 			}
 			if ( $custom_post_type=='event' ) {
 				include_once '/custom-post-types/events/events.acf.php';
