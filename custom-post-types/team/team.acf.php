@@ -1,7 +1,8 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) { 
-    exit; 
-}
+
+//stop direct access
+if ( ! defined( 'ABSPATH' ) )  exit;
+
 acf_add_local_field_group(array(
 	'key' => 'group_5a905e927edba',
 	'title' => __( 'Team Member', 'braftonium' ),

@@ -1,8 +1,8 @@
 <?php
 /* Custom Post Types */
-if ( ! defined( 'ABSPATH' ) ) { 
-    exit; 
-}
+//stop direct access
+if ( ! defined( 'ABSPATH' ) )  exit;
+
 /**
  * Register Post Types.
  */
