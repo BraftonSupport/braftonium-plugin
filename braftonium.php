@@ -185,7 +185,7 @@ if( isset($google_api) && !function_exists('my_acf_init') ) {
 	add_action('acf/init', 'my_acf_init');
 	function braftonium_google_maps_api() {
 		global $google_api;
-		echo '<script src="https://maps.googleapis.com/maps/api/js?key='.sanitize_text_field($google_api).'"></script>';
+		echo '<script src="https://maps.googleapis.com/maps/api/js?key='.$google_api.'"></script>';
 	}
 	add_action( 'wp_head', 'braftonium_google_maps_api', 9 );
 }
