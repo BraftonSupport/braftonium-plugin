@@ -10,9 +10,7 @@ License:	  GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: braftonium
 */
-if ( ! defined( 'ABSPATH' ) ) { 
-    exit; 
-}
+
 // register_activation_hook( __FILE__, 'pluginprefix_function_to_run' );
 
 // internationalization
@@ -36,6 +34,25 @@ if(!function_exists("acf_add_local_field_group")){
 				'key' => 'field_5a4e8e5a65363',
 				'label' => __( "Google Analytics", "braftonium" ),
 				'name' => 'google_analytics',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => 'UA-xxxxxxxx-xx',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
+			array(
+				'key' => 'field_5a7e8e5a75373',
+				'label' => __( "Google Map API Key", "braftonium" ),
+				'name' => 'google_map_api',
 				'type' => 'text',
 				'instructions' => '',
 				'required' => 0,
@@ -153,6 +170,21 @@ function braftonium_google_analytics() {
 	<!-- End Google Analytics -->";
 }
 add_action( 'wp_head', 'braftonium_google_analytics', 10 );
+}
+
+// Add Google map api key
+$google_api = sanitize_html_class(get_field('google_map_api', 'option'));
+if( isset($google_api) && !function_exists('my_acf_init') ) {
+	function my_acf_init() {
+		global $google_api;
+		acf_update_setting('google_api_key', $google_api);
+	}
+	add_action('acf/init', 'my_acf_init');
+	function braftonium_google_maps_api() {
+		global $google_api;
+		echo '<script src="https://maps.googleapis.com/maps/api/js?key='.sanitize_text_field($google_api).'"></script>';
+	}
+	add_action( 'wp_head', 'braftonium_google_maps_api', 9 );
 }
 
 
