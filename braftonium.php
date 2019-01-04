@@ -203,6 +203,7 @@ function braftonium_morewidgets_init() {
 			unregister_sidebar( 'footer-left' );
 			unregister_sidebar( 'footer-middle' );
 			unregister_sidebar( 'footer-right' );
+			unregister_sidebar( 'footer-last' );
 		endif;
 		foreach( $widgetareas as $widgetarea ):
 			if ($widgetarea !== 'footer'):
