@@ -13,8 +13,8 @@ function braftonium_posttypes_init() {
 	global $custom_post_types;
 	if( $custom_post_types ):
 	foreach( $custom_post_types as $custom_post_type ):
-		$custom_post_slug = sanitize_text_field($custom_post_type);
-		$custom_post_santype = ucwords(str_replace('_', ' ', $custom_post_slug));
+		$custom_post_slug = strtolower(str_replace(' ', '-', sanitize_text_field($custom_post_type)));
+		$custom_post_santype = ucwords(str_replace('-', ' ', sanitize_text_field($custom_post_slug)));
 			$posttypes_labels = array(
 				'name'				=> $custom_post_santype,
 				'singular_name'		=> $custom_post_santype,
