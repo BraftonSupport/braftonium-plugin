@@ -177,7 +177,7 @@ add_action( 'wp_head', 'braftonium_google_analytics', 10 );
 
 // Add Google map api key
 $google_api = sanitize_html_class(get_field('google_map_api', 'option'));
-if( isset($google_api) && !function_exists('my_acf_init') ) {
+if( $google_api && !function_exists('my_acf_init') ) {
 	function my_acf_init() {
 		global $google_api;
 		acf_update_setting('google_api_key', $google_api);
