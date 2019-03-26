@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) )  exit;
  */
 if (function_exists ('get_field')){
 	$custom_post_types = get_field('custom_post_types', 'option');
+	$custom_post_types[] = 'resources';
 }
 function braftonium_posttypes_init() {
 	global $custom_post_types;
@@ -28,6 +29,7 @@ function braftonium_posttypes_init() {
 				'capability_type'	=> 'page',
 				'has_archive'		=> true,
 				'hierarchical'		=> true,
+				'publicly_queryable' => true,
 				'supports'			=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'revisions', )
 			);
 			register_post_type($custom_post_slug, $posttypes_args);
@@ -36,6 +38,46 @@ function braftonium_posttypes_init() {
 }
 add_action( 'init', 'braftonium_posttypes_init' );
 
+
+function resources_tax() {
+    $labels = array(
+        'name' => _x( 'Resource Types', 'taxonomy general name' ),
+        'singular_name' => _x( 'Resource Type', 'taxonomy singular name' ),
+        'search_items' =>  __( 'Search Resource Types', 'taxonomy search items' ),
+        'all_items' => __( 'All Resource Types', 'taxonomy all items' ),
+        'edit_item' => __( 'Edit Resource Type', 'taxonomy edit item' ), 
+        'update_item' => __( 'Update Resource Type', 'taxonomy update item' ),
+        'add_new_item' => __( 'Add New Resource Type', 'taxonomy add new' ),
+        'new_item_name' => __( 'New Resource Type', 'taxonomy new item' ),
+      ); 	
+    
+      register_taxonomy('resource-type', 'resources', array(
+        'hierarchical' => true,
+        'labels' => $labels,
+        'show_ui' => true,
+        'query_var' => true,
+        'rewrite' => array( 'slug' => 'resource-type' ),
+      ));
+}
+add_action( 'init', 'resources_tax' );
+
+
+function template_chooser($template) {
+  if( $_GET['post_type']=='resources' ) {
+    return locate_template('archive-resources.php');
+  }   
+  return $template;   
+}
+add_filter('template_include', 'template_chooser');  
+
+function get_custom_post_type_template( $archive_template ) {
+	global $post;
+	if ( is_post_type_archive ( 'resources' ) ) {
+			 $archive_template = dirname( __FILE__ ) . '/archive-resources.php';
+	}
+	return $archive_template;
+}
+add_filter( 'archive_template', 'get_custom_post_type_template' ) ;
 
 function braftonium_posttypes_install() {
 	// trigger our function that registers the custom post type
