@@ -160,7 +160,7 @@ if( function_exists('acf_add_options_page') ) {
 
 // Add GA
 $brafton_ga = sanitize_html_class(get_field('google_analytics', 'option'));
-if( isset($brafton_ga) && !function_exists('braftonium_google_analytics') ) {
+if( !empty($brafton_ga) && !function_exists('braftonium_google_analytics') ) {
 function braftonium_google_analytics() {
     global $brafton_ga;
     echo "<!-- Google Analytics -->
