@@ -14,8 +14,8 @@ function braftonium_posttypes_init() {
 	global $custom_post_types;
 	if( $custom_post_types ):
 	foreach( $custom_post_types as $custom_post_type ):
-		$custom_post_slug = strtolower(str_replace(' ', '-', sanitize_text_field($custom_post_type)));
-		$custom_post_santype = ucwords(str_replace('-', ' ', sanitize_text_field($custom_post_slug)));
+		$custom_post_slug = sanitize_html_class(strtolower(str_replace(' ', '-', $custom_post_type)));
+		$custom_post_santype = ucwords(str_replace('-', ' ', $custom_post_slug));
 			$posttypes_labels = array(
 				'name'				=> $custom_post_santype,
 				'singular_name'		=> $custom_post_santype,
@@ -38,33 +38,49 @@ function braftonium_posttypes_init() {
 }
 add_action( 'init', 'braftonium_posttypes_init' );
 
-
 function resources_tax() {
-    $labels = array(
-        'name' => _x( 'Resource Types', 'taxonomy general name' ),
-        'singular_name' => _x( 'Resource Type', 'taxonomy singular name' ),
-        'search_items' =>  __( 'Search Resource Types', 'taxonomy search items' ),
-        'all_items' => __( 'All Resource Types', 'taxonomy all items' ),
-        'edit_item' => __( 'Edit Resource Type', 'taxonomy edit item' ), 
-        'update_item' => __( 'Update Resource Type', 'taxonomy update item' ),
-        'add_new_item' => __( 'Add New Resource Type', 'taxonomy add new' ),
-        'new_item_name' => __( 'New Resource Type', 'taxonomy new item' ),
-      ); 	
-    
-      register_taxonomy('resource-type', 'resources', array(
-        'hierarchical' => true,
-        'labels' => $labels,
-        'show_ui' => true,
-        'query_var' => true,
-        'rewrite' => array( 'slug' => 'resource-type' ),
-      ));
+	$labels = array(
+		'name' => _x( 'Resource Types', 'taxonomy general name' ),
+		'singular_name' => _x( 'Resource Type', 'taxonomy singular name' ),
+		'search_items' =>  __( 'Search Resource Types', 'taxonomy search items' ),
+		'all_items' => __( 'All Resource Types', 'taxonomy all items' ),
+		'edit_item' => __( 'Edit Resource Type', 'taxonomy edit item' ), 
+		'update_item' => __( 'Update Resource Type', 'taxonomy update item' ),
+		'add_new_item' => __( 'Add New Resource Type', 'taxonomy add new' ),
+		'new_item_name' => __( 'New Resource Type', 'taxonomy new item' ),
+	);
+	register_taxonomy('resource-type', 'resources', array(
+		'hierarchical' => true,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => array( 'slug' => 'resource-type' ),
+	));
+	register_taxonomy_for_object_type( 'resource-type', 'resources' );
+	if (function_exists ('get_field')){
+		$resource_tax2 = sanitize_html_class(get_field('resource_tax2', 'option'));
+	}
+	if (!empty($resource_tax2)):
+		$labels = array(
+			'name' => ucwords($resource_tax2),
+		);
+		register_taxonomy($resource_tax2, 'resources', array(
+			'hierarchical' => false,
+			'labels' => $labels,
+			'show_ui' => true,
+			'show_admin_column' => true,
+			'query_var' => true,
+			'rewrite' => array( 'slug' => $resource_tax2 ),
+		));
+		register_taxonomy_for_object_type( $resource_tax2, 'resources' );
+	endif;
 }
 add_action( 'init', 'resources_tax' );
 
-
 function template_chooser($template) {
   if( $_GET['post_type']=='resources' ) {
-    return locate_template('archive-resources.php');
+    $template = dirname( __FILE__ ) . '/custom-post-types/resources/archive-resources.php';
   }   
   return $template;   
 }
@@ -73,7 +89,7 @@ add_filter('template_include', 'template_chooser');
 function get_custom_post_type_template( $archive_template ) {
 	global $post;
 	if ( is_post_type_archive ( 'resources' ) ) {
-			 $archive_template = dirname( __FILE__ ) . '/archive-resources.php';
+			 $archive_template = dirname( __FILE__ ) . '/custom-post-types/resources/archive-resources.php';
 	}
 	return $archive_template;
 }
@@ -114,4 +130,7 @@ if ( is_array($custom_post_types) &&  in_array('event', $custom_post_types) ) {
 }
 if ( is_array($custom_post_types) &&  in_array('team_member', $custom_post_types) ) {
 	require_once 'custom-post-types/team/team.acf.php';
+}
+if ( is_array($custom_post_types) && in_array('resources', $custom_post_types) ) {
+	wp_enqueue_style( 'style', plugin_dir_url( __FILE__ ).'custom-post-types/resources/style.css');
 }

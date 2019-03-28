@@ -3,19 +3,37 @@ $term = get_queried_object()->cat_ID;
 $background_image = esc_url(get_field('background_image', 'category_'.$term));
 $layout = sanitize_text_field(get_field('blog_layout', 'option'));
 $layoutarray = array('full','rich','simple');
+$resource_tax2 = sanitize_html_class(get_field('resource_tax2', 'option')); 
+if (!empty($_GET['resource-type'])): $resource_type = $_GET['resource-type']; endif;
+if (!empty($_GET[$resource_tax2])): $resource_type2 = $_GET[$resource_tax2]; endif;
 ?>
 
 		<div id="content">
 			<div id="inner-content" class="wrap cf">
-				<div class="container resource-search">
-					<label for="resource-dropdown" class="screen-reader-text">Resource Type:</label>
-					<select name="type" id="resource-dropdown"  onChange="window.document.location.href=this.options[this.selectedIndex].value;"><option value="<?php echo site_url(); ?>/resources/">All</option>
+				<div class="resource-search">
+					<form action="" method="get"><input type="hidden" name="post_type" value="resources" /><label for="resource-type" class="screen-reader-text">Resource Type:</label>
+					<select name="resource-type" id="resource-type" multiple><option value="all">All</option>
 						<?php $cats = get_categories('taxonomy=resource-type&type=resources');
 						foreach ($cats as $cat){
-							echo '<option value="'.site_url().'/resource-type/'.$cat->slug.'">'.$cat->name.'</option>';
+							if ($resource_type && $cat->slug == $resource_type):
+								echo '<option value="'.$cat->slug.'" selected>'.$cat->name.'</option>';
+							else:
+								echo '<option value="'.$cat->slug.'">'.$cat->name.'</option>';
+							endif;
 						}
 					?></select>
-					<form><label for="s" class="screen-reader-text">Or search for:</label><input type="text" id="s" name="s" placeholder="Search"/><input type="hidden" name="post_type" value="resources" /><input alt="Search" type="submit" value="Search" class="blue-btn"></form>
+					<label for="<?php echo $resource_tax2; ?>" class="screen-reader-text"><?php echo ucwords($resource_tax2).':'; ?></label>
+					<select name="<?php echo $resource_tax2; ?>" id="<?php echo $resource_tax2; ?>" multiple><option value="all">All</option>
+						<?php $cats = get_categories('taxonomy='.$resource_tax2.'&type=resources');
+						foreach ($cats as $cat){
+							if ($resource_type2 && $cat->slug == $resource_type2):
+								echo '<option value="'.$cat->slug.'" selected>'.$cat->name.'</option>';
+							else:
+								echo '<option value="'.$cat->slug.'">'.$cat->name.'</option>';
+							endif;
+						}
+					?></select>
+					<label for="s" class="screen-reader-text">Or search for:</label><input type="text" id="s" name="s" placeholder="Search"/><input alt="Search" type="submit" value="Search" class="blue-btn"></form>
 				</div>
 				<main id="main" class="m-all <?php if(is_active_sidebar('blog-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
 

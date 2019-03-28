@@ -3,7 +3,7 @@
 Plugin Name:  Braftonium Plugin
 Plugin URI:   https://github.com/BraftonSupport/braftonium-plugin/
 Description:  Adds Custom Post Types, Custom Widget Areas, and adds Google Analytics
-Version:	  .2
+Version:	  .3
 Author: Brafton
 Author URI: http://www.brafton.com
 License:	  GPL2
@@ -123,6 +123,28 @@ if(!function_exists("acf_add_local_field_group")){
 				),
 				'layout' => 'horizontal',
 				'toggle' => 0,
+				'return_format' => 'value',
+			),
+			array(
+				'key' => 'field_5a4e8f8665367',
+				'label' => __( "Resources - Optional Second Taxonomy", "braftonium" ),
+				'name' => 'resource_tax2',
+				'type' => 'radio',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'choices' => array(
+				),
+				'allow_null' => 0,
+				'other_choice' => 1,
+				'save_other_choice' => 1,
+				'default_value' => '',
+				'layout' => 'horizontal',
 				'return_format' => 'value',
 			),
 		),
