@@ -2,6 +2,51 @@
 .resource-search select {
 	background-image: none;
 }
+
+.resource-search .resource-type {
+	border-radius: 3px;
+	margin-top: 8px;
+	background-color: rgba(255, 255, 255, 0.75);
+	width: 100%;
+	line-height: 2em;
+	padding: 0 10px;
+	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+	position: relative;
+}
+.resource-search .resource-type:hover {
+	-webkit-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.25);
+	box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.25);
+}
+.check {
+	width: 100%;
+	display: block;
+	cursor: pointer;
+}
+.check:after {
+	content: "▼";
+	float: right;
+}
+input[type="checkbox"] {
+	float: right;
+}
+input[type=checkbox]#dropdown, input[type=checkbox]#dropdown2 {
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+input[type=checkbox]#dropdown ~ div, input[type=checkbox]#dropdown2 ~ div {
+	display: none;
+}
+input[type=checkbox]#dropdown:checked ~ div, input[type=checkbox]#dropdown2:checked ~ div {
+	display: block;
+}
+input[type=checkbox]#dropdown:checked ~ .check:after, input[type=checkbox]#dropdown2:checked ~ .check:after {
+	transform: rotate(90deg);
+}
 @media only screen and (min-width: 481px) {
 	.resource-search form {
 		display: -ms-flexbox;
@@ -37,13 +82,7 @@
 		flex-wrap: nowrap;
 		height: 3em;
 	}
-	.resource-search select {
+	.resource-search select, .resource-search .resource-type {
 		flex: 1 1 auto;
-	}
-	label:hover + select, 
-	.resource-search select:hover, .resource-search select:focus, .resource-search select:focus-within, .resource-search select:active {
-		height: auto;
-		position: relative;
-		display: block;
 	}
 }

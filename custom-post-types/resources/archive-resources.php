@@ -11,28 +11,33 @@ if (!empty($_GET[$resource_tax2])): $resource_type2 = $_GET[$resource_tax2]; end
 		<div id="content">
 			<div id="inner-content" class="wrap cf">
 				<div class="resource-search">
-					<form action="" method="get"><input type="hidden" name="post_type" value="resources" /><label for="resource-type" class="screen-reader-text">Resource Type:</label>
-					<select name="resource-type" id="resource-type" multiple><option value="all">All</option>
+					<form action="" method="get"><input type="hidden" name="post_type" value="resources" />
+					<div class="resource-type">
+					<input type="checkbox" id="dropdown" value=""><label for="dropdown" class="check">Resource Type:</label><div>
 						<?php $cats = get_categories('taxonomy=resource-type&type=resources');
-						foreach ($cats as $cat){
-							if ($resource_type && $cat->slug == $resource_type):
-								echo '<option value="'.$cat->slug.'" selected>'.$cat->name.'</option>';
+						foreach ($cats as $cat):
+							if ( is_array($resource_type) && in_array($cat->slug,$resource_type)):
+								echo $cat->name.' <input type="checkbox" name="resource-type[]" value="'.$cat->slug.'" checked><br/>';
+							elseif ( !is_array($resource_type) && $cat->slug == $resource_type):
+								echo $cat->name.' <input type="checkbox" name="resource-type[]" value="'.$cat->slug.'" checked><br/>';
 							else:
-								echo '<option value="'.$cat->slug.'">'.$cat->name.'</option>';
+								echo $cat->name.' <input type="checkbox" name="resource-type[]" value="'.$cat->slug.'"><br/>';
 							endif;
-						}
-					?></select>
-					<label for="<?php echo $resource_tax2; ?>" class="screen-reader-text"><?php echo ucwords($resource_tax2).':'; ?></label>
-					<select name="<?php echo $resource_tax2; ?>" id="<?php echo $resource_tax2; ?>" multiple><option value="all">All</option>
+						endforeach;
+					?></div></div>
+					<div class="resource-type">
+						<input type="checkbox" id="dropdown2" value=""><label for="dropdown2" class="check"><?php echo ucwords($resource_tax2).':'; ?></label><div>
 						<?php $cats = get_categories('taxonomy='.$resource_tax2.'&type=resources');
-						foreach ($cats as $cat){
-							if ($resource_type2 && $cat->slug == $resource_type2):
-								echo '<option value="'.$cat->slug.'" selected>'.$cat->name.'</option>';
+						foreach ($cats as $cat):
+							if ( is_array($resource_type2) && in_array($cat->slug,$resource_type2)):
+								echo $cat->name.' <input type="checkbox" name="'.$resource_tax2.'[]" value="'.$cat->slug.'" checked><br/>';
+							elseif ( !is_array($resource_type2) && $cat->slug == $resource_type2):
+								echo $cat->name.' <input type="checkbox" name="'.$resource_tax2.'[]" value="'.$cat->slug.'" checked><br/>';
 							else:
-								echo '<option value="'.$cat->slug.'">'.$cat->name.'</option>';
+								echo $cat->name.' <input type="checkbox" name="'.$resource_tax2.'[]" value="'.$cat->slug.'"><br/>';
 							endif;
-						}
-					?></select>
+						endforeach;
+					?></div></div>
 					<label for="s" class="screen-reader-text">Or search for:</label><input type="text" id="s" name="s" placeholder="Search"/><input alt="Search" type="submit" value="Search" class="blue-btn"></form>
 				</div>
 				<main id="main" class="m-all <?php if(is_active_sidebar('blog-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
@@ -43,8 +48,61 @@ if (!empty($_GET[$resource_tax2])): $resource_type2 = $_GET[$resource_tax2]; end
 							the_archive_description( '<div class="taxonomy-description">', '</div>' );
 						echo '</header>';
 					endif; ?>
+<?php if (!empty($resource_type) && !empty($resource_type2)):
+	$args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'resources',
+		'tax_query' => array(
+			'relation' => 'OR',
+			array(
+				'taxonomy' => $resource_tax2,
+				'field' => 'slug',
+				'terms' => $resource_type2
+			),
+			array(
+				'taxonomy' => 'resource-type',
+				'field' => 'slug',
+				'terms' => $resource_type
+			)
+		)
+	);
+	elseif (!empty($resource_type) && empty($resource_type2)):
+		$args = array(
+			'posts_per_page' => -1,
+			'post_type' => 'resources',
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'resource-type',
+					'field' => 'slug',
+					'terms' => $resource_type
+				)
+			)
+		);
+	elseif (empty($resource_type) && !empty($resource_type2)):
+		$args = array(
+			'posts_per_page' => -1,
+			'post_type' => 'resources',
+			'tax_query' => array(
+				array(
+					'taxonomy' => $resource_tax2,
+					'field' => 'slug',
+					'terms' => $resource_type2
+				)
+			)
+		);
+	else:
+		$args = array(
+			'posts_per_page' => -1,
+			'post_type' => 'resources'
+		);
+endif; 
 
-							<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+
+	$the_query = new WP_Query( $args );
+		if ( $the_query->have_posts()) : while ( $the_query->have_posts()) :  $the_query->the_post(); 
+?>
+
 
 							<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?>>
 
