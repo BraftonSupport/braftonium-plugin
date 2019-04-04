@@ -3,9 +3,13 @@ $term = get_queried_object()->cat_ID;
 $background_image = esc_url(get_field('background_image', 'category_'.$term));
 $layout = sanitize_text_field(get_field('blog_layout', 'option'));
 $layoutarray = array('full','rich','simple');
-$resource_tax2 = sanitize_html_class(get_field('resource_tax2', 'option')); 
-if (!empty($_GET['resource-type'])): $resource_type = $_GET['resource-type']; endif;
-if (!empty($_GET[$resource_tax2])): $resource_type2 = $_GET[$resource_tax2]; endif;
+$resource_tax2 = sanitize_html_class(get_field('resource_tax2', 'option'));
+if (!empty($_GET['s'])):
+	$s = $_GET['s'];
+else:
+	if (!empty($_GET['resource-type'])): $resource_type = $_GET['resource-type']; endif;
+	if (!empty($_GET[$resource_tax2])): $resource_type2 = $_GET[$resource_tax2]; endif;
+endif;
 ?>
 
 		<div id="content">
@@ -42,7 +46,15 @@ if (!empty($_GET[$resource_tax2])): $resource_type2 = $_GET[$resource_tax2]; end
 								endforeach;
 							?></div></div>
 						<?php endif; ?>
-					<label for="s" class="screen-reader-text">Or search for:</label><input type="text" id="s" name="s" placeholder="Search"/><input alt="Search" type="submit" value="Search" class="blue-btn"></form>
+					<label for="s" class="screen-reader-text">Or search for:</label>
+					<input type="text" id="s" name="s" placeholder="<?php
+						if (isset($_GET['s']) && !$_GET['s']=='' ):
+							echo $_GET['s'];
+						else:
+							echo 'Search';
+						endif; ?>"/>
+					<input alt="Search" type="submit" value="Search" class="blue-btn">
+					</form>
 				</div>
 				<main id="main" class="m-all <?php if(is_active_sidebar('blog-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
 
@@ -52,60 +64,48 @@ if (!empty($_GET[$resource_tax2])): $resource_type2 = $_GET[$resource_tax2]; end
 							the_archive_description( '<div class="taxonomy-description">', '</div>' );
 						echo '</header>';
 					endif; ?>
-<?php if (!empty($resource_type) && !empty($resource_type2)):
-	$args = array(
-		'posts_per_page' => -1,
-		'post_type' => 'resources',
-		'tax_query' => array(
-			'relation' => 'OR',
-			array(
-				'taxonomy' => $resource_tax2,
-				'field' => 'slug',
-				'terms' => $resource_type2
-			),
-			array(
-				'taxonomy' => 'resource-type',
-				'field' => 'slug',
-				'terms' => $resource_type
-			)
-		)
-	);
-	elseif (!empty($resource_type) && empty($resource_type2)):
-		$args = array(
-			'posts_per_page' => -1,
-			'post_type' => 'resources',
-			'tax_query' => array(
-				array(
-					'taxonomy' => 'resource-type',
-					'field' => 'slug',
-					'terms' => $resource_type
-				)
-			)
-		);
-	elseif (empty($resource_type) && !empty($resource_type2)):
-		$args = array(
-			'posts_per_page' => -1,
-			'post_type' => 'resources',
-			'tax_query' => array(
-				array(
-					'taxonomy' => $resource_tax2,
-					'field' => 'slug',
-					'terms' => $resource_type2
-				)
-			)
-		);
-	else:
-		$args = array(
-			'posts_per_page' => -1,
-			'post_type' => 'resources'
-		);
-endif; 
+					<?php if (!empty($s)):
+						$args = array(
+							'posts_per_page' => -1,
+							'post_type' => 'resources',
+							's' =>$s
+						);
+						elseif (!empty($resource_type) && empty($resource_type2)):
+							$args = array(
+								'posts_per_page' => -1,
+								'post_type' => 'resources',
+								'tax_query' => array(
+									array(
+										'taxonomy' => 'resource-type',
+										'field' => 'slug',
+										'terms' => $resource_type
+									)
+								)
+							);
+						elseif (empty($resource_type) && !empty($resource_type2)):
+							$args = array(
+								'posts_per_page' => -1,
+								'post_type' => 'resources',
+								'tax_query' => array(
+									array(
+										'taxonomy' => $resource_tax2,
+										'field' => 'slug',
+										'terms' => $resource_type2
+									)
+								)
+							);
+						else:
+							$args = array(
+								'posts_per_page' => -1,
+								'post_type' => 'resources'
+							);
+					endif; 
 
 
 
-	$the_query = new WP_Query( $args );
-		if ( $the_query->have_posts()) : while ( $the_query->have_posts()) :  $the_query->the_post(); 
-?>
+					$the_query = new WP_Query( $args );
+						if ( $the_query->have_posts()) : while ( $the_query->have_posts()) :  $the_query->the_post(); 
+				?>
 
 
 							<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?>>
