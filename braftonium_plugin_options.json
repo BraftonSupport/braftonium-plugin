@@ -85,7 +85,7 @@
                 "choices": {
                     "testimonial": "Testimonial",
                     "event": "Event",
-                    "team-member": "Team Member"
+                    "team_member": "Team Member"
                 },
                 "allow_custom": 1,
                 "save_custom": 1,

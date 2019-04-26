@@ -115,7 +115,7 @@ if(!function_exists("acf_add_local_field_group")){
 				'choices' => array(
 					'testimonial' => __( 'Testimonial', 'braftonium' ),
 					'event' => __( 'Event', 'braftonium' ),
-					'team-member' => __( 'Team Member', 'braftonium' ),
+					'team_member' => __( 'Team Member', 'braftonium' ),
 				),
 				'allow_custom' => 1,
 				'save_custom' => 1,
