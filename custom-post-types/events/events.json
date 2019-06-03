@@ -1,0 +1,108 @@
+[
+    {
+        "key": "group_acf_events",
+        "title": "Events",
+        "fields": [
+            {
+                "key": "field_5925f6ba0e510",
+                "label": "Start Date",
+                "name": "start_date",
+                "type": "date_picker",
+                "instructions": "If both start date and end date are left blank, you have the choice of \"TBD\" or \"Various Dates\".",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "m\/d\/Y",
+                "first_day": 0,
+                "return_format": "d\/m\/Y",
+                "save_format": "yymmdd"
+            },
+            {
+                "key": "field_597a6e194269f",
+                "label": "End Date",
+                "name": "end_date",
+                "type": "date_picker",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "display_format": "m\/d\/Y",
+                "first_day": 0,
+                "return_format": "d\/m\/Y",
+                "save_format": "yymmdd"
+            },
+            {
+                "key": "field_597f75fe4d7bd",
+                "label": "Date Text",
+                "name": "date_text",
+                "type": "radio",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "tbd": "TBD",
+                    "various": "Various Dates"
+                },
+                "other_choice": 0,
+                "save_other_choice": 0,
+                "default_value": "",
+                "layout": "horizontal",
+                "allow_null": 0,
+                "return_format": "value"
+            },
+            {
+                "key": "field_5925f7ba0e511",
+                "label": "Location",
+                "name": "location",
+                "type": "text",
+                "instructions": "",
+                "required": false,
+                "conditional_logic": false,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "formatting": "html",
+                "maxlength": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "event",
+                    "order_no": 0,
+                    "group_no": 0
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "side",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": [],
+        "active": true,
+        "description": "",
+        "id": "acf_events"
+    }
+]
