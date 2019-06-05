@@ -113,9 +113,9 @@ if(!function_exists("acf_add_local_field_group")){
 					'id' => '',
 				),
 				'choices' => array(
-					'testimonial' => __( 'Testimonial', 'braftonium' ),
-					'event' => __( 'Event', 'braftonium' ),
-					'team_member' => __( 'Team Member', 'braftonium' ),
+					'testimonial' => __( 'Testimonial', 'braftonium' ), // @todo need to build default template for testimonials archive rather than use the default archive.php file
+					'event' => __( 'Event', 'braftonium' ), // @todo need to build default template for event archive rather than use the default archive.php file
+					'team_member' => __( 'Team Member', 'braftonium' ), // @todo need to build default template for team member archive rather than use the default archive.php file
 				),
 				'allow_custom' => 1,
 				'save_custom' => 1,
