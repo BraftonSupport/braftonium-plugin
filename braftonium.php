@@ -52,12 +52,12 @@ if(!function_exists("acf_add_local_field_group")){
 				'append' => '',
 				'maxlength' => '',
 			),
-			array(
+			array( //this is an otpion that prob should be in the theme not the plugin.
 				'key' => 'field_5a7e8e5a75373',
 				'label' => __( "Google Map API Key", "braftonium" ),
 				'name' => 'google_map_api',
 				'type' => 'text',
-				'instructions' => '',
+				'instructions' => 'If you need an API key go to <a href="https://developers.google.com/maps/documentation/embed/get-api-key" target="_blank">this page</a> and get yourself a key. Click the "Get Started" button, click Maps, Routes, Places, and press Continue. Select a new project and follow the instructions to set up your billing information. Copy and paste the API key there.',
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
@@ -115,7 +115,7 @@ if(!function_exists("acf_add_local_field_group")){
 				'choices' => array(
 					'testimonial' => __( 'Testimonial', 'braftonium' ),
 					'event' => __( 'Event', 'braftonium' ),
-					'team-member' => __( 'Team Member', 'braftonium' ),
+					'team_member' => __( 'Team Member', 'braftonium' ),
 				),
 				'allow_custom' => 1,
 				'save_custom' => 1,
