@@ -14,8 +14,12 @@ function braftonium_posttypes_init() {
 	global $custom_post_types;
 	if( $custom_post_types ):
 	foreach( $custom_post_types as $custom_post_type ):
+		//replace any whitespaces with dashes for machine slug
 		$custom_post_slug = sanitize_html_class(strtolower(str_replace(' ', '-', $custom_post_type)));
+		//replace any dashes(-) with whitespace
 		$custom_post_santype = ucwords(str_replace('-', ' ', $custom_post_slug));
+		//replace any underscores(_) with whitespace
+		$custom_post_santype = ucwords(str_replace('_', ' ', $custom_post_santype));
 			$posttypes_labels = array(
 				'name'				=> $custom_post_santype,
 				'singular_name'		=> $custom_post_santype,
