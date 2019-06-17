@@ -1,0 +1,137 @@
+[
+    {
+        "key": "group_5a4e8d955ca61",
+        "title": "Braftonium Plugin Options",
+        "fields": [
+            {
+                "key": "field_5a4e8e5a65363",
+                "label": "Google Analytics",
+                "name": "google_analytics",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "UA-xxxxxxxx-xx",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_5a7e8e5a75373",
+                "label": "Google Map API Key",
+                "name": "google_map_api",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_5a4e8f8065367",
+                "label": "Extra Widget Areas",
+                "name": "extra_widget_areas",
+                "type": "checkbox",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "header": "Header",
+                    "page": "Page Sidebar",
+                    "blog": "Blog Sidebar",
+                    "footer": "Footer Widget Area"
+                },
+                "allow_custom": 1,
+                "save_custom": 1,
+                "default_value": [
+                    "footer"
+                ],
+                "layout": "horizontal",
+                "toggle": 0,
+                "return_format": "value"
+            },
+            {
+                "key": "field_5a8f488bf8df7",
+                "label": "Custom Post Types",
+                "name": "custom_post_types",
+                "type": "checkbox",
+                "instructions": "Adding 'testimonial', 'event', and 'team-member' will automatically add accompanying options.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": {
+                    "testimonial": "Testimonial",
+                    "event": "Event",
+                    "team_member": "Team Member"
+                },
+                "allow_custom": 1,
+                "save_custom": 1,
+                "default_value": [],
+                "layout": "horizontal",
+                "toggle": 0,
+                "return_format": "value"
+            },
+            {
+                "key": "field_5a4e8f8665367",
+                "label": "Resources - Optional Second Taxonomy",
+                "name": "resource_tax2",
+                "type": "radio",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "choices": [],
+                "allow_null": 0,
+                "other_choice": 1,
+                "save_other_choice": 1,
+                "default_value": "",
+                "layout": "horizontal",
+                "return_format": "value"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "braftonium_plugin"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": ""
+    }
+]
