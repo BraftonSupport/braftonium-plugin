@@ -8,6 +8,9 @@ if ( ! defined( 'ABSPATH' ) )  exit;
  */
 if (function_exists ('get_field')){
 	$custom_post_types = get_field('custom_post_types', 'option');
+	if(!is_array($custom_post_types)){
+		$custom_post_types = [];
+	}
 	$custom_post_types[] = 'resources';
 }
 function braftonium_posttypes_init() {
