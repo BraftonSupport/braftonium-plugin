@@ -39,6 +39,7 @@ function braftonium_posttypes_init() {
 				'publicly_queryable' => true,
 				'supports'			=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'revisions', )
 			);
+			$posttypes_args = apply_filters('braftonium_modify_custom_post_type',$posttypes_args, $custom_post_type);
 			register_post_type($custom_post_slug, $posttypes_args);
 		endforeach;
 	endif;
