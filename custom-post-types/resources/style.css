@@ -31,7 +31,7 @@
 	float: right;
 }
 input[type="checkbox"] {
-	float: right;
+	/*float: right;*/
 }
 input[type=checkbox]#dropdown, input[type=checkbox]#dropdown2 {
 	position: absolute;
