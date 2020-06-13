@@ -36,6 +36,9 @@ function braftonium_posttypes_init() {
 				'capability_type'	=> 'page',
 				'has_archive'		=> true,
 				'show_in_rest'		=> true,
+				'rewrite'			=> array(
+					'with_front'	=> false
+				),
 				'hierarchical'		=> true,
 				'publicly_queryable' => true,
 				'supports'			=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'revisions', )
