@@ -35,6 +35,7 @@ function braftonium_posttypes_init() {
 				'public'			=> true,
 				'capability_type'	=> 'page',
 				'has_archive'		=> true,
+				'show_in_rest'		=> true,
 				'hierarchical'		=> true,
 				'publicly_queryable' => true,
 				'supports'			=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'revisions', )
@@ -62,6 +63,7 @@ function resources_tax() {
 		'labels' => $labels,
 		'show_ui' => true,
 		'show_admin_column' => true,
+		'show_in_rest'	=> true,
 		'query_var' => true,
 		'rewrite' => array( 'slug' => 'resource-type' ),
 	));
@@ -78,6 +80,7 @@ function resources_tax() {
 			'labels' => $labels,
 			'show_ui' => true,
 			'show_admin_column' => true,
+			'show_in_rest'		=> true,
 			'query_var' => true,
 			'rewrite' => array( 'slug' => $resource_tax2 ),
 		));
