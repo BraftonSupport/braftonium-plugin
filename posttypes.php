@@ -142,7 +142,7 @@ if ( is_array($custom_post_types) && in_array('testimonial', $custom_post_types)
 if ( is_array($custom_post_types) &&  in_array('event', $custom_post_types) ) {
 	require_once 'custom-post-types/events/events.acf.php';
 }
-if ( is_array($custom_post_types) &&  in_array('team_member', $custom_post_types) ) {
+if ( is_array($custom_post_types) &&  in_array('team-member', $custom_post_types) ) {
 	require_once 'custom-post-types/team/team.acf.php';
 }
 if ( is_array($custom_post_types) && in_array('resources', $custom_post_types) ) {

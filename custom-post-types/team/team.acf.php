@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) )  exit;
 
 acf_add_local_field_group(array(
 	'key' => 'group_5a905e927edba',
-	'title' => __( 'Team Member', 'braftonium' ),
+	'title' => __( 'Team Member Details', 'braftonium' ),
 	'fields' => array(
 		array(
 			'key' => 'field_5a905f64f0245',
@@ -32,13 +32,13 @@ acf_add_local_field_group(array(
 			array(
 				'param' => 'post_type',
 				'operator' => '==',
-				'value' => 'team_member',
+				'value' => 'team-member',
 			),
 		),
 	),
 	'menu_order' => 0,
 	'position' => 'acf_after_title',
-	'style' => 'seamless',
+	'style' => 'default',
 	'label_placement' => 'top',
 	'instruction_placement' => 'label',
 	'hide_on_screen' => '',
