@@ -102,7 +102,8 @@ add_filter('template_include', 'template_chooser');
 
 function get_custom_post_type_template( $archive_template ) {
 	global $post;
-	if ( is_post_type_archive ( 'resources' ) ) {
+	if ( is_post_type_archive ( 'resources' ) && !file_exists(get_theme_file_path('archive-resources.php')) ) {
+		
 			 $archive_template = dirname( __FILE__ ) . '/custom-post-types/resources/archive-resources.php';
 	}
 	return $archive_template;
