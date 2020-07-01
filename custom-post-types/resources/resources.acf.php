@@ -10,7 +10,7 @@ acf_add_local_field_group(array(
 			'label' => 'Resource File',
 			'name' => 'resource_file',
 			'type' => 'file',
-			'instructions' => 'Resource to be downloaded and/or Displayed.',
+			'instructions' => 'Resource to be downloaded and/or Displayed. You may omit this and simply use a download form or embeed the resource in the content manually.',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array(

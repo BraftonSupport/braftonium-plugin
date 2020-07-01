@@ -146,6 +146,9 @@ if ( is_array($custom_post_types) &&  in_array('event', $custom_post_types) ) {
 if ( is_array($custom_post_types) &&  in_array('team-member', $custom_post_types) ) {
 	require_once 'custom-post-types/team/team.acf.php';
 }
+
 if ( is_array($custom_post_types) && in_array('resources', $custom_post_types) ) {
 	wp_enqueue_style( 'style', plugin_dir_url( __FILE__ ).'custom-post-types/resources/style.css');
+	require_once 'custom-post-types/resources/resources.acf.php';
+
 }
