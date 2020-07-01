@@ -88,6 +88,7 @@ if(!function_exists("acf_add_local_field_group")){
 					'header' => __( "Header", "braftonium" ),
 					'page' => __( "Page Sidebar", "braftonium" ),
 					'blog' => __( "Blog Sidebar", "braftonium" ),
+					'resources' => __( "Resources Sidebar", "braftonium" ),
 					'footer' => __( "Footer Widget Area", "braftonium" ),
 				),
 				'allow_custom' => 1,

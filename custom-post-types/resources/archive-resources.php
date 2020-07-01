@@ -56,7 +56,7 @@ endif;
 					<button alt="Search" form="sort-resources" type="submit" value="Search" class="blue-btn">Search</button>
 					</form>
 				</div>
-				<main id="main" class="m-all <?php if(is_active_sidebar('blog-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
+				<main id="main" class="m-all <?php if(is_active_sidebar('resources-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
 
 					
 					<?php if (!empty($s)):
