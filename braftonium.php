@@ -178,6 +178,14 @@ if( function_exists('acf_add_options_page') ) {
 		'parent_slug'	=> 'themes.php',
 		'redirect'		=> false
 	));
+	acf_add_options_sub_page(array(
+        'page_title' 	=> __( 'Braftonium Resource Options', 'braftonium' ),
+		'menu_title'	=> __( 'Braftonium Resource Options', 'braftonium' ),
+		'menu_slug' 	=> 'braftonium_resources_plugin',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false,
+        'parent_slug'    => 'edit.php?post_type=resources',
+    ));
 }
 
 // Add GA
