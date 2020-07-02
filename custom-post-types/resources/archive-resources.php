@@ -99,6 +99,7 @@ endif;
 
 
 					$the_query = new WP_Query( $args );
+					add_filter('the_excerpt', 'braftonium_resource_excerpt');
 						if ( $the_query->have_posts()) : while ( $the_query->have_posts()) :  $the_query->the_post(); 
 				?>
 
@@ -137,6 +138,20 @@ endif;
 
 								<section class="entry-content cf">
 									<?php the_excerpt(); ?>
+									<p>
+										<?php 
+											$direct = get_field('direct_download');
+											$url = get_the_permalink();
+											$button_text = 'Read More';
+											if($direct){
+												$download_link = get_field('resource_file');
+												$url = $download_link['url'];
+												$button_text = 'Download';
+											}
+											printf('<a href="%s" class="blue-btn">%s</a>', $url, $button_text);
+										?>
+										
+									</p>
 								</section></div>
 
 							</article>

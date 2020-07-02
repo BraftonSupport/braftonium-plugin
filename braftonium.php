@@ -221,7 +221,9 @@ if( !empty($google_api) && !function_exists('my_acf_init') ) {
 	add_action( 'wp_head', 'braftonium_google_maps_api', 9 );
 }
 
-
+function braftonium_resource_excerpt($output){
+	return $output;
+}
 /**
  * Register widget areas.
  */
