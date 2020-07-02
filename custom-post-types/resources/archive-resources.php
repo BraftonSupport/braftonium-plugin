@@ -46,14 +46,14 @@ endif;
 								endforeach;
 							?></div></div>
 						<?php endif; ?>
-					<label for="s" class="screen-reader-text">Or search for:</label>
+					<label for="s" class="screen-reader-text space"> Or Search </label>
 					<input type="text" id="s" name="s" placeholder="<?php
 						if (isset($_GET['s']) && !$_GET['s']=='' ):
 							echo $_GET['s'];
 						else:
 							echo 'Search';
 						endif; ?>"/>
-					<button alt="Search" form="sort-resources" type="submit" value="Search" class="blue-btn">Search</button>
+					<button alt="Search" form="sort-resources" type="submit" value="Submit" class="blue-btn">Submit</button>
 					</form>
 				</div>
 				<main id="main" class="m-all <?php if(is_active_sidebar('resources-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
