@@ -61,13 +61,13 @@ endif;
 					
 					<?php if (!empty($s)):
 						$args = array(
-							'posts_per_page' => -1,
+							'posts_per_page' => 12,
 							'post_type' => 'resources',
 							's' =>$s
 						);
 						elseif (!empty($resource_type) && empty($resource_type2)):
 							$args = array(
-								'posts_per_page' => -1,
+								'posts_per_page' => 12,
 								'post_type' => 'resources',
 								'tax_query' => array(
 									array(
@@ -79,7 +79,7 @@ endif;
 							);
 						elseif (empty($resource_type) && !empty($resource_type2)):
 							$args = array(
-								'posts_per_page' => -1,
+								'posts_per_page' => 12,
 								'post_type' => 'resources',
 								'tax_query' => array(
 									array(
@@ -91,7 +91,7 @@ endif;
 							);
 						else:
 							$args = array(
-								'posts_per_page' => -1,
+								'posts_per_page' => 12,
 								'post_type' => 'resources'
 							);
 					endif; 
@@ -121,10 +121,12 @@ endif;
 									<h2 class="h3 entry-title"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 									<p class="byline entry-meta vcard">
 									<?php $terms = get_the_terms( $post->ID , 'resource-type' );
+									    echo '<span class="tax-terms">';
 										foreach ( $terms as $term ) {
-										echo '<strong>'.$term->name.'</strong><br/>';
-									} ?>
-										<?php printf( __( 'Posted', 'braftonium' ).' %1$s %2$s',
+										echo '<strong>'.$term->name.' </strong>';
+										}
+										echo '</span><br/>'; ?>
+										<?php printf( __( '', 'braftonium' ).' %1$s %2$s',
                   							     /* the time the post was published */
                   							     '<time class="updated entry-time" datetime="' . get_the_time('Y-m-d') . '" itemprop="datePublished">' . get_the_time(get_option('date_format')) . '</time>',
                        								/* the author of the post */
