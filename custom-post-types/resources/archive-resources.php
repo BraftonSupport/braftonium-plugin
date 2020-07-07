@@ -59,7 +59,9 @@ endif;
 				<main id="main" class="m-all <?php if(is_active_sidebar('resources-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
 
 					
-					<?php if (!empty($s)):
+					<?php
+					$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; 
+					if (!empty($s)):
 						$args = array(
 							'posts_per_page' => 12,
 							'post_type' => 'resources',
@@ -96,7 +98,9 @@ endif;
 							);
 					endif; 
 
-
+					if($paged > 1){
+						$args['paged'] = $paged;
+					}
 
 					$the_query = new WP_Query( $args );
 					add_filter('the_excerpt', 'braftonium_resource_excerpt');
