@@ -195,12 +195,14 @@ if( !empty($brafton_ga) && !function_exists('braftonium_google_analytics') ) {
 function braftonium_google_analytics() {
     global $brafton_ga;
     echo "<!-- Google Analytics -->
-	<script>
-		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-		ga('create', '". $brafton_ga ."', 'auto');
-		ga('send', 'pageview');
-	</script>
-	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	<script async src='https://www.googletagmanager.com/gtag/js?id=${brafton_ga}\></script>
+`	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', '${brafton_ga}');
+	</script>`
 	<!-- End Google Analytics -->";
 }
 add_action( 'wp_head', 'braftonium_google_analytics', 10 );
