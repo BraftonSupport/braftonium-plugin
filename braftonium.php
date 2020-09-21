@@ -88,6 +88,7 @@ if(!function_exists("acf_add_local_field_group")){
 					'header' => __( "Header", "braftonium" ),
 					'page' => __( "Page Sidebar", "braftonium" ),
 					'blog' => __( "Blog Sidebar", "braftonium" ),
+					'resources' => __( "Resources Sidebar", "braftonium" ),
 					'footer' => __( "Footer Widget Area", "braftonium" ),
 				),
 				'allow_custom' => 1,
@@ -178,6 +179,14 @@ if( function_exists('acf_add_options_page') ) {
 		'parent_slug'	=> 'themes.php',
 		'redirect'		=> false
 	));
+	acf_add_options_sub_page(array(
+        'page_title' 	=> __( 'Braftonium Resource Options', 'braftonium' ),
+		'menu_title'	=> __( 'Braftonium Resource Options', 'braftonium' ),
+		'menu_slug' 	=> 'braftonium_resources_plugin',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false,
+        'parent_slug'    => 'edit.php?post_type=resources',
+    ));
 }
 
 // Add GA
@@ -186,12 +195,14 @@ if( !empty($brafton_ga) && !function_exists('braftonium_google_analytics') ) {
 function braftonium_google_analytics() {
     global $brafton_ga;
     echo "<!-- Google Analytics -->
-	<script>
-		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-		ga('create', '". $brafton_ga ."', 'auto');
-		ga('send', 'pageview');
-	</script>
-	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	<script async src='https://www.googletagmanager.com/gtag/js?id=${brafton_ga}\></script>
+`	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', '${brafton_ga}');
+	</script>`
 	<!-- End Google Analytics -->";
 }
 add_action( 'wp_head', 'braftonium_google_analytics', 10 );
@@ -212,7 +223,9 @@ if( !empty($google_api) && !function_exists('my_acf_init') ) {
 	add_action( 'wp_head', 'braftonium_google_maps_api', 9 );
 }
 
-
+function braftonium_resource_excerpt($output){
+	return $output;
+}
 /**
  * Register widget areas.
  */

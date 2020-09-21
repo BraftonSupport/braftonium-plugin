@@ -15,7 +15,7 @@ endif;
 		<div id="content">
 			<div id="inner-content" class="wrap cf">
 				<div class="resource-search">
-					<form action="" method="get"><input type="hidden" name="post_type" value="resources" />
+					<form id="sort-resources" action="" method="get"><input type="hidden" name="post_type" value="resources" />
 						<?php $cats = get_categories('taxonomy=resource-type&type=resources');
 							if ($cats): ?>
 							<div class="resource-type">
@@ -46,33 +46,30 @@ endif;
 								endforeach;
 							?></div></div>
 						<?php endif; ?>
-					<label for="s" class="screen-reader-text">Or search for:</label>
+					<label for="s" class="screen-reader-text space"> Or Search </label>
 					<input type="text" id="s" name="s" placeholder="<?php
 						if (isset($_GET['s']) && !$_GET['s']=='' ):
 							echo $_GET['s'];
 						else:
 							echo 'Search';
 						endif; ?>"/>
-					<input alt="Search" type="submit" value="Search" class="blue-btn">
+					<button alt="Search" form="sort-resources" type="submit" value="Submit" class="blue-btn">Submit</button>
 					</form>
 				</div>
-				<main id="main" class="m-all <?php if(is_active_sidebar('blog-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
+				<main id="main" class="m-all <?php if(is_active_sidebar('resources-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
 
-					<?php if (!$background_image):
-						echo '<header class="article-header">';
-							the_archive_title( '<h1 class="page-title">', '</h1>' );
-							the_archive_description( '<div class="taxonomy-description">', '</div>' );
-						echo '</header>';
-					endif; ?>
-					<?php if (!empty($s)):
+					
+					<?php
+					$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; 
+					if (!empty($s)):
 						$args = array(
-							'posts_per_page' => -1,
+							'posts_per_page' => 12,
 							'post_type' => 'resources',
 							's' =>$s
 						);
 						elseif (!empty($resource_type) && empty($resource_type2)):
 							$args = array(
-								'posts_per_page' => -1,
+								'posts_per_page' => 12,
 								'post_type' => 'resources',
 								'tax_query' => array(
 									array(
@@ -84,7 +81,7 @@ endif;
 							);
 						elseif (empty($resource_type) && !empty($resource_type2)):
 							$args = array(
-								'posts_per_page' => -1,
+								'posts_per_page' => 12,
 								'post_type' => 'resources',
 								'tax_query' => array(
 									array(
@@ -96,14 +93,17 @@ endif;
 							);
 						else:
 							$args = array(
-								'posts_per_page' => -1,
+								'posts_per_page' => 12,
 								'post_type' => 'resources'
 							);
 					endif; 
 
-
+					if($paged > 1){
+						$args['paged'] = $paged;
+					}
 
 					$the_query = new WP_Query( $args );
+					add_filter('the_excerpt', 'braftonium_resource_excerpt');
 						if ( $the_query->have_posts()) : while ( $the_query->have_posts()) :  $the_query->the_post(); 
 				?>
 
@@ -125,10 +125,12 @@ endif;
 									<h2 class="h3 entry-title"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 									<p class="byline entry-meta vcard">
 									<?php $terms = get_the_terms( $post->ID , 'resource-type' );
+									    echo '<span class="tax-terms">';
 										foreach ( $terms as $term ) {
-										echo '<strong>'.$term->name.'</strong><br/>';
-									} ?>
-										<?php printf( __( 'Posted', 'braftonium' ).' %1$s %2$s',
+										echo '<strong>'.$term->name.' </strong>';
+										}
+										echo '</span><br/>'; ?>
+										<?php printf( __( '', 'braftonium' ).' %1$s %2$s',
                   							     /* the time the post was published */
                   							     '<time class="updated entry-time" datetime="' . get_the_time('Y-m-d') . '" itemprop="datePublished">' . get_the_time(get_option('date_format')) . '</time>',
                        								/* the author of the post */
@@ -142,6 +144,20 @@ endif;
 
 								<section class="entry-content cf">
 									<?php the_excerpt(); ?>
+									<p>
+										<?php 
+											$direct = get_field('direct_download');
+											$url = get_the_permalink();
+											$button_text = 'Read More';
+											if($direct){
+												$download_link = get_field('resource_file');
+												$url = $download_link['url'];
+												$button_text = 'Download';
+											}
+											printf('<a href="%s" class="blue-btn">%s</a>', $url, $button_text);
+										?>
+										
+									</p>
 								</section></div>
 
 							</article>

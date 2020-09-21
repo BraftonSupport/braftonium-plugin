@@ -57,10 +57,14 @@ input[type=checkbox]#dropdown:checked ~ .check:after, input[type=checkbox]#dropd
 		flex-wrap: wrap;
 	}
 	.resource-search form > * {
+		margin:auto !important;
 		margin-right: 1%;
-		margin-top: auto;
-		margin-bottom: auto;
+
 		flex: 1 0 auto;
+	}
+	.resource-search form label.space{
+		flex: 1 0 15%;
+		text-align:center;
 	}
 	.resource-search form > *:last-child {
 		margin-right: 0;

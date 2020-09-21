@@ -35,6 +35,11 @@ function braftonium_posttypes_init() {
 				'public'			=> true,
 				'capability_type'	=> 'page',
 				'has_archive'		=> true,
+				'show_in_rest'		=> true,
+				'rewrite'			=> array(
+					'with_front'	=> false
+				),
+				'show_in_nav_menus' => true,
 				'hierarchical'		=> true,
 				'publicly_queryable' => true,
 				'supports'			=> array( 'title', 'excerpt', 'editor', 'thumbnail', 'revisions', )
@@ -62,6 +67,7 @@ function resources_tax() {
 		'labels' => $labels,
 		'show_ui' => true,
 		'show_admin_column' => true,
+		'show_in_rest'	=> true,
 		'query_var' => true,
 		'rewrite' => array( 'slug' => 'resource-type' ),
 	));
@@ -78,6 +84,7 @@ function resources_tax() {
 			'labels' => $labels,
 			'show_ui' => true,
 			'show_admin_column' => true,
+			'show_in_rest'		=> true,
 			'query_var' => true,
 			'rewrite' => array( 'slug' => $resource_tax2 ),
 		));
@@ -96,7 +103,8 @@ add_filter('template_include', 'template_chooser');
 
 function get_custom_post_type_template( $archive_template ) {
 	global $post;
-	if ( is_post_type_archive ( 'resources' ) ) {
+	if ( is_post_type_archive ( 'resources' ) && !file_exists(get_theme_file_path('archive-resources.php')) ) {
+		
 			 $archive_template = dirname( __FILE__ ) . '/custom-post-types/resources/archive-resources.php';
 	}
 	return $archive_template;
@@ -136,9 +144,12 @@ if ( is_array($custom_post_types) && in_array('testimonial', $custom_post_types)
 if ( is_array($custom_post_types) &&  in_array('event', $custom_post_types) ) {
 	require_once 'custom-post-types/events/events.acf.php';
 }
-if ( is_array($custom_post_types) &&  in_array('team_member', $custom_post_types) ) {
+if ( is_array($custom_post_types) &&  in_array('team-member', $custom_post_types) ) {
 	require_once 'custom-post-types/team/team.acf.php';
 }
+
 if ( is_array($custom_post_types) && in_array('resources', $custom_post_types) ) {
 	wp_enqueue_style( 'style', plugin_dir_url( __FILE__ ).'custom-post-types/resources/style.css');
+	require_once 'custom-post-types/resources/resources.acf.php';
+
 }
