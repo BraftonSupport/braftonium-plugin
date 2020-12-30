@@ -56,7 +56,7 @@ endif;
 					<button alt="Search" form="sort-resources" type="submit" value="Submit" class="blue-btn">Submit</button>
 					</form>
 				</div>
-				<main id="main" class="m-all <?php if(is_active_sidebar('resources-sidebar')): echo 't-2of3 d-5of7'; endif; ?> cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
+				<main id="main" class="m-all cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
 
 					
 					<?php
@@ -102,7 +102,8 @@ endif;
 						$args['paged'] = $paged;
 					}
 
-					$the_query = new WP_Query( $args );
+                    $the_query = new WP_Query( $args );
+                    
 					add_filter('the_excerpt', 'braftonium_resource_excerpt');
 						if ( $the_query->have_posts()) : while ( $the_query->have_posts()) :  $the_query->the_post(); 
 				?>
@@ -114,10 +115,10 @@ endif;
 									echo '<div class="thumbnail">';
 									if (in_array($layout, $layoutarray)):
 										echo '<a href="'. get_the_permalink().'"  title="'. the_title_attribute( 'echo=0' ) .'">';
-										the_post_thumbnail('medium');
+										the_post_thumbnail('full');
 										echo '</a>';
 									else:
-										the_post_thumbnail('medium');
+										the_post_thumbnail('full');
 									endif;
 									echo '</div>';
 								} ?>
@@ -143,18 +144,19 @@ endif;
 								</header>
 
 								<section class="entry-content cf">
-									<?php the_excerpt(); ?>
+									<?php $e = get_the_excerpt();
+									printf('<p>%s</p>', $e); ?>
 									<p>
 										<?php 
 											$direct = get_field('direct_download');
 											$url = get_the_permalink();
-											$button_text = 'Read More';
+											$button_text = 'View';
 											if($direct){
 												$download_link = get_field('resource_file');
 												$url = $download_link['url'];
 												$button_text = 'Download';
 											}
-											printf('<a href="%s" class="blue-btn">%s</a>', $url, $button_text);
+											printf('<a href="%s" class="button blue-btn">%s</a>', $url, $button_text);
 										?>
 										
 									</p>
@@ -164,7 +166,7 @@ endif;
 
 							<?php endwhile; ?>
 
-								<?php braftonium_page_navi(); ?>
+								<?php if($the_query->max_num_pages > 1){ braftonium_page_navi(); } ?>
 
 							<?php else : ?>
 
@@ -183,7 +185,7 @@ endif;
 							<?php endif; ?>
 
 						</main>
-					<?php get_sidebar(); ?>
+					<?php //get_sidebar(); ?>
 
 				</div>
 
