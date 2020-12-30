@@ -195,7 +195,7 @@ if( !empty($brafton_ga) && !function_exists('braftonium_google_analytics') ) {
 function braftonium_google_analytics() {
     global $brafton_ga;
     echo "<!-- Google Analytics -->
-	<script async src='https://www.googletagmanager.com/gtag/js?id=${brafton_ga}\></script>
+	<script async src='https://www.googletagmanager.com/gtag/js?id=${brafton_ga}'\></script>
 `	<script>
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
