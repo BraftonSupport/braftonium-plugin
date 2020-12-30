@@ -254,7 +254,20 @@ function braftonium_google_analytics() {
 }
 add_action( 'wp_head', 'braftonium_google_analytics', 10 );
 }
-
+function modify_resource_content($content){
+	if(is_singular('resources')){
+		global $post;
+		$display = get_field('display_resource', $post->ID);
+		if($display){
+			$download_link = get_field('resource_file');
+			$url = $download_link['url'];
+			$embed = sprintf('<iframe src="%s" class="display-resource"></iframe>', $url);
+			$content .= $embed;
+		}
+	}
+	return $content;
+}
+add_filter('the_content', 'modify_resource_content');
 // Add Google map api key
 $google_api = sanitize_html_class(get_field('google_map_api', 'option'));
 if( !empty($google_api) && !function_exists('my_acf_init') ) {
