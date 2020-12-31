@@ -243,13 +243,13 @@ function braftonium_google_analytics() {
     global $brafton_ga;
     echo "<!-- Google Analytics -->
 	<script async src='https://www.googletagmanager.com/gtag/js?id=${brafton_ga}'\></script>
-`	<script>
+	<script>
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());
 
 	gtag('config', '${brafton_ga}');
-	</script>`
+	</script>
 	<!-- End Google Analytics -->";
 }
 add_action( 'wp_head', 'braftonium_google_analytics', 10 );
