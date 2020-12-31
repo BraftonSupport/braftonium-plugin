@@ -117,10 +117,10 @@ endif;
 									echo '<div class="thumbnail">';
 									if (in_array($layout, $layoutarray)):
 										echo '<a href="'. get_the_permalink().'"  title="'. the_title_attribute( 'echo=0' ) .'">';
-										the_post_thumbnail('full');
+										the_post_thumbnail('medium');
 										echo '</a>';
 									else:
-										the_post_thumbnail('full');
+										the_post_thumbnail('medium');
 									endif;
 									echo '</div>';
 								} ?>
