@@ -167,6 +167,53 @@ if(!function_exists("acf_add_local_field_group")){
 		'active' => 1,
 		'description' => '',
 	));
+	acf_add_local_field_group(array(
+		'key' => 'group_5f91eb67e46c6',
+		'title' => 'Resources Options',
+		'fields' => array(
+			array(
+				'key' => 'field_5f91eb7562df6',
+				'label' => 'Resources Banner',
+				'name' => 'resources_banner',
+				'type' => 'image',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'return_format' => 'array',
+				'preview_size' => 'medium',
+				'library' => 'all',
+				'min_width' => '',
+				'min_height' => '',
+				'min_size' => '',
+				'max_width' => '',
+				'max_height' => '',
+				'max_size' => '',
+				'mime_types' => '',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'options_page',
+					'operator' => '==',
+					'value' => 'braftonium_resources_plugin',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => true,
+		'description' => '',
+	));
 }
 
 // make setting page
@@ -195,19 +242,32 @@ if( !empty($brafton_ga) && !function_exists('braftonium_google_analytics') ) {
 function braftonium_google_analytics() {
     global $brafton_ga;
     echo "<!-- Google Analytics -->
-	<script async src='https://www.googletagmanager.com/gtag/js?id=${brafton_ga}\></script>
-`	<script>
+	<script async src='https://www.googletagmanager.com/gtag/js?id=${brafton_ga}'\></script>
+	<script>
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());
 
 	gtag('config', '${brafton_ga}');
-	</script>`
+	</script>
 	<!-- End Google Analytics -->";
 }
 add_action( 'wp_head', 'braftonium_google_analytics', 10 );
 }
-
+function modify_resource_content($content){
+	if(is_singular('resources')){
+		global $post;
+		$display = get_field('display_resource', $post->ID);
+		if($display){
+			$download_link = get_field('resource_file');
+			$url = $download_link['url'];
+			$embed = sprintf('<iframe src="%s" class="display-resource"></iframe>', $url);
+			$content .= $embed;
+		}
+	}
+	return $content;
+}
+add_filter('the_content', 'modify_resource_content');
 // Add Google map api key
 $google_api = sanitize_html_class(get_field('google_map_api', 'option'));
 if( !empty($google_api) && !function_exists('my_acf_init') ) {
