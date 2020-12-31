@@ -55,7 +55,7 @@ endif;
 						else:
 							echo 'Search';
 						endif; ?>"/>
-					<button alt="Search" form="sort-resources" type="submit" value="Submit" class="blue-btn">Submit</button>
+					<button alt="Search" form="sort-resources" type="submit" value="Submit" class="btn">Submit</button>
 					</form>
 				</div>
 				<main id="main" class="m-all cf<?php echo ' '.$main_class_list; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
@@ -158,7 +158,7 @@ endif;
 												$url = $download_link['url'];
 												$button_text = 'Download';
 											}
-											printf('<a href="%s" class="button blue-btn">%s</a>', $url, $button_text);
+											printf('<a href="%s" class="btn">%s</a>', $url, $button_text);
 										?>
 										
 									</p>
