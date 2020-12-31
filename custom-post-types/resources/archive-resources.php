@@ -4,6 +4,8 @@ $background_image = esc_url(get_field('background_image', 'category_'.$term));
 $layout = sanitize_text_field(get_field('blog_layout', 'option'));
 $layoutarray = array('full','rich','simple');
 $resource_tax2 = sanitize_html_class(get_field('resource_tax2', 'option'));
+$usingSidebar = is_active_sidebar('resources-sidebar')? ' t-203 d-5of7': '';
+$main_class_list = $layout.$usingSidebar;
 if (!empty($_GET['s'])):
 	$s = $_GET['s'];
 else:
@@ -56,7 +58,7 @@ endif;
 					<button alt="Search" form="sort-resources" type="submit" value="Submit" class="blue-btn">Submit</button>
 					</form>
 				</div>
-				<main id="main" class="m-all cf<?php echo ' '.$layout; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
+				<main id="main" class="m-all cf<?php echo ' '.$main_class_list; ?>" itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
 
 					
 					<?php
