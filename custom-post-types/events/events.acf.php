@@ -2,7 +2,8 @@
 
 //stop direct access
 if ( ! defined( 'ABSPATH' ) )  exit;
-
+add_action('acf/init', 'braftonium_events_fields');
+function braftonium_events_fields(){
 	register_field_group(array (
 		'id' => 'acf_events',
 		'title' => __( 'Events', 'braftonium' ),
@@ -72,3 +73,4 @@ if ( ! defined( 'ABSPATH' ) )  exit;
 		),
 		'menu_order' => 0,
 	));
+}

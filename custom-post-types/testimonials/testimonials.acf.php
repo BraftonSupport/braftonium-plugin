@@ -3,6 +3,8 @@
 //stop direct access
 if ( ! defined( 'ABSPATH' ) )  exit;
 
+add_action('acf/init', 'braftonium_testimonial_fields');
+function braftonium_testimonial_fields(){
 	register_field_group(array (
 		'id' => 'acf_testimonials',
 		'title' => __( 'Testimonials', 'braftonium' ),
@@ -87,3 +89,4 @@ if ( ! defined( 'ABSPATH' ) )  exit;
 		),
 		'menu_order' => 0,
 	));
+}

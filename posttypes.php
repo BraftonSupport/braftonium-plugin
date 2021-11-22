@@ -6,15 +6,25 @@ if ( ! defined( 'ABSPATH' ) )  exit;
 /**
  * Register Post Types.
  */
-if (function_exists ('get_field')){
-	$custom_post_types = get_field('custom_post_types', 'option');
-	if(!is_array($custom_post_types)){
-		$custom_post_types = [];
+function braftonium_get_post_types(){
+	if (function_exists ('get_field')){
+		$custom_post_types = get_field('custom_post_types', 'option');
+		if(!is_array($custom_post_types)){
+			$custom_post_types = [];
+		}
+		$custom_post_types[] = 'resources';
 	}
-	$custom_post_types[] = 'resources';
+	return $custom_post_types;
 }
+// if (function_exists ('get_field')){
+// 	$custom_post_types = get_field('custom_post_types', 'option');
+// 	if(!is_array($custom_post_types)){
+// 		$custom_post_types = [];
+// 	}
+// 	$custom_post_types[] = 'resources';
+// }
 function braftonium_posttypes_init() {
-	global $custom_post_types;
+	$custom_post_types = braftonium_get_post_types();
 	if( $custom_post_types ):
 	foreach( $custom_post_types as $custom_post_type ):
 		//replace any whitespaces with dashes for machine slug
@@ -48,6 +58,7 @@ function braftonium_posttypes_init() {
 			register_post_type($custom_post_slug, $posttypes_args);
 		endforeach;
 	endif;
+	resources_tax();
 }
 add_action( 'init', 'braftonium_posttypes_init' );
 
@@ -91,7 +102,7 @@ function resources_tax() {
 		register_taxonomy_for_object_type( $resource_tax2, 'resources' );
 	endif;
 }
-add_action( 'init', 'resources_tax' );
+// add_action( 'init', 'resources_tax' );
 
 function template_chooser($template) {
   if( $_GET['post_type']=='resources' ) {
@@ -125,7 +136,7 @@ register_activation_hook( __FILE__, 'braftonium_posttypes_install' );
 function braftonium_deactivation() {
 	// unregister the post type, so the rules are no longer in memory
 	
-	global $custom_post_types;
+	$custom_post_types = braftonium_get_post_types();
 	if( $custom_post_types ):
 	foreach( $custom_post_types as $custom_post_type ):
 		unregister_post_type( $custom_post_type );
@@ -137,19 +148,19 @@ function braftonium_deactivation() {
 register_deactivation_hook( __FILE__, 'braftonium_deactivation' );
 
 
-if ( is_array($custom_post_types) && in_array('testimonial', $custom_post_types) ) {
-	require_once 'custom-post-types/testimonials/testimonials.acf.php';
-	wp_enqueue_style( 'style', plugin_dir_url( __FILE__ ).'custom-post-types/testimonials/style.css');
-}
-if ( is_array($custom_post_types) &&  in_array('event', $custom_post_types) ) {
-	require_once 'custom-post-types/events/events.acf.php';
-}
-if ( is_array($custom_post_types) &&  in_array('team-member', $custom_post_types) ) {
-	require_once 'custom-post-types/team/team.acf.php';
-}
+// if ( is_array($custom_post_types) && in_array('testimonial', $custom_post_types) ) {
+// 	require_once 'custom-post-types/testimonials/testimonials.acf.php';
+// 	wp_enqueue_style( 'style', plugin_dir_url( __FILE__ ).'custom-post-types/testimonials/style.css');
+// }
+// if ( is_array($custom_post_types) &&  in_array('event', $custom_post_types) ) {
+// 	require_once 'custom-post-types/events/events.acf.php';
+// }
+// if ( is_array($custom_post_types) &&  in_array('team-member', $custom_post_types) ) {
+// 	require_once 'custom-post-types/team/team.acf.php';
+// }
 
-if ( is_array($custom_post_types) && in_array('resources', $custom_post_types) ) {
-	wp_enqueue_style( 'style', plugin_dir_url( __FILE__ ).'custom-post-types/resources/style.css');
-	require_once 'custom-post-types/resources/resources.acf.php';
+// if ( is_array($custom_post_types) && in_array('resources', $custom_post_types) ) {
+// 	wp_enqueue_style( 'style', plugin_dir_url( __FILE__ ).'custom-post-types/resources/style.css');
+// 	require_once 'custom-post-types/resources/resources.acf.php';
 
-}
+// }
