@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) )  exit;
  * Register Post Types.
  */
 function braftonium_get_post_types(){
+	$custom_post_types = [];
 	if (function_exists ('get_field')){
 		$custom_post_types = get_field('custom_post_types', 'option');
 		if(!is_array($custom_post_types)){
