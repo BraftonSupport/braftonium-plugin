@@ -25,10 +25,8 @@ require_once ABSPATH . 'wp-content/plugins/advanced-custom-fields-pro/acf.php';
 // Getting the post types file
 require_once( 'posttypes.php' );
 
-// make acf options
-if(!function_exists("acf_add_local_field_group")){
-	_e( "Hey, do you have the ACF plugin? You don\'t need to activate it but it\'ll be nice if it was there.", "braftonium" );
-} else {
+add_action('acf/init', 'acf_options');
+function acf_options(){
 	acf_add_local_field_group(array(
 		'key' => 'group_5a4e8d955ca61',
 		'title' => 'Braftonium Plugin Options',
@@ -52,7 +50,7 @@ if(!function_exists("acf_add_local_field_group")){
 				'append' => '',
 				'maxlength' => '',
 			),
-			array( //this is an otpion that prob should be in the theme not the plugin.
+			array( //this is an option that prob should be in the theme not the plugin.
 				'key' => 'field_5a7e8e5a75373',
 				'label' => __( "Google Map API Key", "braftonium" ),
 				'name' => 'google_map_api',
@@ -214,10 +212,8 @@ if(!function_exists("acf_add_local_field_group")){
 		'active' => true,
 		'description' => '',
 	));
-}
 
-// make setting page
-if( function_exists('acf_add_options_page') ) {
+	//setting page
 	acf_add_options_page(array(
 		'page_title' 	=> __( 'Braftonium Plugin Options', 'braftonium' ),
 		'menu_title'	=> __( 'Braftonium Options', 'braftonium' ),
@@ -227,13 +223,13 @@ if( function_exists('acf_add_options_page') ) {
 		'redirect'		=> false
 	));
 	acf_add_options_sub_page(array(
-        'page_title' 	=> __( 'Braftonium Resource Options', 'braftonium' ),
+		'page_title' 	=> __( 'Braftonium Resource Options', 'braftonium' ),
 		'menu_title'	=> __( 'Braftonium Resource Options', 'braftonium' ),
 		'menu_slug' 	=> 'braftonium_resources_plugin',
 		'capability'	=> 'edit_posts',
 		'redirect'		=> false,
-        'parent_slug'    => 'edit.php?post_type=resources',
-    ));
+		'parent_slug'    => 'edit.php?post_type=resources',
+	));
 }
 
 // Add GA
