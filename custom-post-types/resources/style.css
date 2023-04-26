@@ -35,8 +35,9 @@ input[type="checkbox"] {
 }
 input[type=checkbox]#dropdown, input[type=checkbox]#dropdown2 {
 	position: absolute;
-	top: -9999px;
-	left: -9999px;
+	opacity: 0;
+	height: 0;
+	visibility: hidden;
 }
 input[type=checkbox]#dropdown ~ div, input[type=checkbox]#dropdown2 ~ div {
 	display: none;
